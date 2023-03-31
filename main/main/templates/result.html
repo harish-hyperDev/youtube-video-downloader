@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+
+    {% for k in video.result %}
+    <div class="row">
+        <div style="margin: 4px 100px">{{ k }}</div>
+    </div>
+    {% endfor %}
+{% endblock %}
