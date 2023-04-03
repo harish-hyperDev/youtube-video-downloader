@@ -55,7 +55,7 @@
     </div>
 </header>
 
-<div class="">
+<div>
     <form method="POST" action="/" class="row" style="margin: 40px 100px">
         {% csrf_token %}
         <div class="form-outline col-11">
@@ -69,6 +69,7 @@
             <i class="fas fa-search"></i>
         </button>
     </form>
+
     {% block content %}
     {% endblock %}
 </div>

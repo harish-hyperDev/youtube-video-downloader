@@ -1,9 +1,43 @@
 {% extends "base.html" %}
 {% block content %}
 
-    {% for k in video.result %}
-    <div class="row">
-        <div style="margin: 4px 100px">{{ k }}</div>
+<!-- 1:1 aspect ratio -->
+<div class="d-flex flex-row justify-content-center" style="margin: 40px 100px">
+    <div class="embed-responsive embed-responsive-21by9">
+        <iframe class="embed-responsive-item video-frame"></iframe>
     </div>
-    {% endfor %}
+
+    <form method="POST" class="input-group">
+        {% csrf_token %}
+        <input type="search" name="video-link" id="form1" value={{video.link}} class="form-control" hidden />
+
+        <select class="custom-select selected-type" name="video-index" id="inputGroupSelect04">
+            {% for k in video.result %}
+            <option>{{ k.full_type }}</option>
+            {% endfor %}
+        </select>
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary form-submit" style="height: min-content" type="submit">Download</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    $(function () {
+        let link = "{{video.link}}"
+        let linkRegex = /=\w+/
+        let linkMatchingRegex = link.match(linkRegex)[0]
+
+        linkMatchingRegex = "https://www.youtube.com/embed/" + linkMatchingRegex.slice(1, linkMatchingRegex.length)
+        $(".video-frame").attr("src", linkMatchingRegex);
+
+        // $(".form-submit")[0].value = $(".selected-type").value
+        console.log($(".form-submit")[0])
+    })
+
+    $(".form-submit").on("click", function () {
+        console.log($(this))
+    })
+</script>
+
 {% endblock %}
