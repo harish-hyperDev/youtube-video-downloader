@@ -1,15 +1,39 @@
 from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseNotFound
+
 from starlette.responses import FileResponse
 
 from pytube import YouTube
 
 
 def send_file(file_path, file_name):
+    """
     return FileResponse(
         path = file_path,
         media_type = 'application/octet-stream',
         filename = file_name
     )
+    """
+
+    # response = HttpResponse(file_path, content_type='application/vnd.mp4')
+    # response['Content-Disposition'] = 'attachment; filename="video.mp4"'
+    # return response
+
+    try:
+        with open(file_path, 'r') as f:
+            file_data = f.read()
+
+        # sending response
+        response = HttpResponse(file_data, content_type='application/vnd.mp4')
+        response['Content-Disposition'] = 'attachment; filename="video.mp4"'
+        print("file exists")
+        print(response)
+
+    except IOError:
+        # handle file not exist case here
+        response = HttpResponseNotFound('<h1>File not exist</h1>')
+
+    return response
 
 
 def home(request):
@@ -54,9 +78,11 @@ def home(request):
                         print("Downloading...")
                         k["full"].download()
                         print("Downloaded!")
+
                         # send_file(k["full_name"])
                         # k["full"].download()
 
+                        print("full path ", k["full_path"])
                         send_file(file_path=k["full_path"], file_name=k["full_name"])
                         print("file sent")
 
