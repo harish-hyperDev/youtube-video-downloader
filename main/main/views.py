@@ -11,12 +11,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
 def download(request, test=None):
-    print("test in DOWNLOAD --- ", request.args['test'])
+    # print("test in DOWNLOAD --- ", request.args['test'])
     #video = get_object_or_404(Video, pk=pk)
-    print("base ", BASE_DIR)
+    print("session ---> ", request.session.get("video_path"), " -- ", request.session.get("video_name"))
+    # print("base ", BASE_DIR)
     video = {
-        "path": f'{BASE_DIR}/The USD is Finished.mp4',
-        "title": 'The USD is Finished.mp4'
+        "path": request.session.get("video_path"),
+        "title": request.session.get("video_name")
     }
     response = FileResponse(open(video["path"], 'rb'), content_type='video/mp4')
     response['Content-Disposition'] = f'attachment; filename="{video["title"]}"'
@@ -80,8 +81,12 @@ def home(request):
                             video_object=k["full"]
                         )
                         if download_status:
+                            request.session["video_path"] = k["full_path"]
+                            request.session["video_name"] = k["full_name"]
+                            
                             response = redirect('download/', test="hello")
                             print("response of redirect ", response)
+                            print("session --- ", request.session)
                             return response
 
         except:
