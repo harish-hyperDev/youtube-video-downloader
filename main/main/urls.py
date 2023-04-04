@@ -13,12 +13,32 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path
-from django.views.generic import TemplateView
+# from django.views.generic import TemplateView
+
+from ninja import NinjaAPI
+from ninja.renderers import BaseRenderer
+
 from . import views
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+api = NinjaAPI()
+
+
+@api.get("/meow")
+def add(request, a, b):
+    print(BASE_DIR)
+    return {"result": a + b}
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("api/", api.urls),
+    path('download/', views.download, name='video_download'),
+
     path('', views.home, name="home")
 ]

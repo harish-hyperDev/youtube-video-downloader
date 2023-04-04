@@ -19,35 +19,8 @@
 
                 <ul class="d-flex nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small" style="width: 100% !important">
                     <li>
-                        <a href="#" class="nav-link text-white">
-<!--                            <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"></use></svg>-->
-                            AlohaTube
-                        </a>
+                        <a href="#" class="nav-link text-white">AlohaTube</a>
                     </li>
-                    <!--<li>
-                        <a href="#" class="nav-link text-white">
-                            <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#speedometer2"></use></svg>
-                            Dashboard
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-white">
-                            <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#table"></use></svg>
-                            Orders
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-white">
-                            <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"></use></svg>
-                            Products
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-white">
-                            <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"></use></svg>
-                            Customers
-                        </a>
-                    </li>-->
                     <li style="margin-left: auto !important"><a class="nav-link">Made with &#x2764;&#xFE0F; in Aloha</a></li>
                 </ul>
             </div>
@@ -59,11 +32,11 @@
     <form method="POST" action="/" class="row" style="margin: 40px 100px">
         {% csrf_token %}
         <div class="form-outline col-11">
-            {% if video %}
+        {% if video %}
             <input type="search" name="video-link" id="form1" value={{video.link}} class="form-control" />
-            {% else %}
+        {% else %}
             <input type="search" name="video-link" id="form01" class="form-control" />
-            {% endif %}
+        {% endif %}
         </div>
         <button type="submit" class="btn btn-dark col">
             <i class="fas fa-search"></i>

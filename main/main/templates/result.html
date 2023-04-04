@@ -12,9 +12,10 @@
         <input type="search" name="video-link" id="form1" value={{video.link}} class="form-control" hidden />
 
         <select class="custom-select selected-type" name="video-index" id="inputGroupSelect04">
-            {% for k in video.result %}
+        {% for k in video.result %}
             <option>{{ k.full_type }}</option>
-            {% endfor %}
+        {% endfor %}
+        
         </select>
         <div class="input-group-append">
             <button class="btn btn-outline-secondary form-submit" style="height: min-content" type="submit">Download</button>
